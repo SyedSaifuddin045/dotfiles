@@ -40,8 +40,8 @@ for sid in 1 2 3 4 5; do
     label="" \
     label.font="sketchybar-app-font:Regular:13.0" \
     label.padding_left=4 \
-    label.padding_right=8 \
     label.color=0xffcdd6f4 \
+    padding_left=3 padding_right=3 \
     background.drawing=off \
     background.color=0xff89b4fa \
     background.height=24 \
