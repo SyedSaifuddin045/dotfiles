@@ -1,5 +1,8 @@
 config-version = 2
 
+# Register AeroSpace as a login item so the setup restores on reboot
+start-at-login = true
+
 # Reload config automatically when file saved — experiment freely
 auto-reload-config = true
 
