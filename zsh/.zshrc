@@ -43,6 +43,7 @@ source <(fzf --zsh)
 
 # zoxide
 eval "$(zoxide init zsh)"
+alias cd='z'
 
 # eza (modern ls)
 alias ls='eza --color=always --group-directories-first'
