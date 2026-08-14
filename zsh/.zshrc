@@ -54,6 +54,10 @@ alias lt='eza --tree --level=2'
 # bat (modern cat)
 alias cat='bat --paging=never'
 
+# vim -> nvim
+alias vim='nvim'
+alias vi='nvim'
+
 # delta (pretty git diffs) — pager set globally, see setup
 
 # history tuning
