@@ -10,7 +10,7 @@ sketchybar --bar height=30 \
   margin=0 \
   padding_left=30 padding_right=24 \
   sticky=on \
-  topmost=on
+  topmost=window
 
 # Default styling (JetBrainsMono Nerd Font for icons)
 sketchybar --default \
@@ -27,7 +27,7 @@ sketchybar --default \
 # --- AeroSpace workspaces (left) ---
 sketchybar --add event aerospace_workspace_change
 
-for sid in 1 2 3 4 5 6 7 8 9 10; do
+for sid in 1 2 3 4 5; do
   sketchybar --add item space.$sid left \
     --subscribe space.$sid aerospace_workspace_change \
     --set space.$sid \
@@ -59,6 +59,7 @@ sketchybar --add item clock right \
 # Media: song progress slider
 sketchybar --add slider media_progress right \
   --set media_progress \
+  drawing=off \
   slider.width=55 \
   slider.percentage=0 \
   slider.highlight_color=0xff89b4fa \
@@ -73,22 +74,26 @@ sketchybar --add slider media_progress right \
 # Media: info + controls (prev, play, next left-to-right)
 sketchybar --add item media_info right \
   --set media_info \
+  drawing=off \
   update_freq=1 \
   label.max_chars=24 \
   script="$PLUGIN_DIR/media_info.sh"
 
 sketchybar --add item media_next right \
   --set media_next icon="" \
+  drawing=off \
   click_script="nowplaying-cli next"
 
 sketchybar --add item media_play right \
   --set media_play \
+  drawing=off \
   update_freq=1 \
   script="$PLUGIN_DIR/media_play.sh" \
   click_script="nowplaying-cli togglePlayPause"
 
 sketchybar --add item media_prev right \
   --set media_prev icon="" \
+  drawing=off \
   click_script="nowplaying-cli previous"
 
 # Activity: RAM
