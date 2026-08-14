@@ -3,6 +3,10 @@
 CONFIG_DIR="${CONFIG_DIR:-$HOME/.config/sketchybar}"
 PLUGIN_DIR="$CONFIG_DIR/plugins"
 
+# Reset media presence state so it re-syncs after a restart/reload
+echo 0 > /tmp/sb_media_present
+echo 0 > /tmp/sb_media_count
+
 # Bar
 sketchybar --bar height=30 \
   position=top \
@@ -36,6 +40,7 @@ for sid in 1 2 3 4 5; do
     label="" \
     label.font="sketchybar-app-font:Regular:13.0" \
     label.padding_left=4 \
+    label.padding_right=8 \
     label.color=0xffcdd6f4 \
     background.drawing=off \
     background.color=0xff89b4fa \
