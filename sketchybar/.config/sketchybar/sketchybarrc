@@ -31,17 +31,38 @@ for sid in 1 2 3 4 5; do
   sketchybar --add item space.$sid left \
     --subscribe space.$sid aerospace_workspace_change \
     --set space.$sid \
-    label="$sid" \
+    icon="$sid" \
+    icon.color=0xffcdd6f4 \
+    label="" \
+    label.font="sketchybar-app-font:Regular:13.0" \
+    label.padding_left=4 \
+    label.color=0xffcdd6f4 \
     background.drawing=off \
+    background.color=0xff89b4fa \
+    background.height=24 \
+    background.corner_radius=6 \
     click_script="aerospace workspace $sid" \
     script="$PLUGIN_DIR/aerospace.sh $sid"
 done
 
-# Focused window (left)
-sketchybar --add item window_focus left \
-  --set window_focus \
+# Refresh workspace app-icon previews on aerospace workspace change
+sketchybar --add item space_windows left \
+  --subscribe space_windows aerospace_workspace_change \
+  --set space_windows \
+  drawing=off \
+  script="$PLUGIN_DIR/space_windows.sh"
+
+# Focused app icon + name (left)
+sketchybar --add item front_app left \
+  --set front_app \
+  icon.font="sketchybar-app-font:Regular:14.0" \
+  icon.color=0xffcdd6f4 \
+  icon.padding_right=6 \
+  label.color=0xffcdd6f4 \
+  label.max_chars=24 \
   update_freq=1 \
-  script="$PLUGIN_DIR/window_focus.sh"
+  script="$PLUGIN_DIR/front_app.sh" \
+  --subscribe front_app front_app_switched
 
 # --- Right side (added rightmost-first) ---
 # Battery
@@ -107,3 +128,6 @@ sketchybar --add item cpu right \
   --set cpu \
   update_freq=2 \
   script="$PLUGIN_DIR/cpu.sh"
+
+# Populate workspace app-icon previews on startup
+"$PLUGIN_DIR/space_windows.sh"
