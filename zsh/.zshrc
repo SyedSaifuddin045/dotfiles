@@ -38,6 +38,31 @@ eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/night-owl.omp.json)"
 # zsh-autosuggestions
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+# fzf
+source <(fzf --zsh)
+
+# zoxide
+eval "$(zoxide init zsh)"
+
+# eza (modern ls)
+alias ls='eza --color=always --group-directories-first'
+alias ll='eza -l --color=always --group-directories-first --git'
+alias la='eza -la --color=always --group-directories-first --git'
+alias lt='eza --tree --level=2'
+
+# bat (modern cat)
+alias cat='bat --paging=never'
+
+# delta (pretty git diffs) — pager set globally, see setup
+
+# history tuning
+export HISTSIZE=10000
+export SAVEHIST=10000
+export HISTFILE=~/.zsh_history
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+
 # zsh-syntax-highlighting (must be sourced last)
 export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/opt/homebrew/share/zsh-syntax-highlighting/highlighters
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

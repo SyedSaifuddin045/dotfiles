@@ -2,5 +2,5 @@ background-opacity=0.85
 background-opacity-cells=true
 background-blur=true
 theme = Night Owl
-font-family=JetBrainsMono
+font-family=JetBrainsMonoNerdFont
 font-size=14

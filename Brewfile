@@ -1,6 +1,8 @@
 tap "anomalyco/tap"
 tap "jandedobbeleer/oh-my-posh"
 tap "wix-incubator/brew", "https://github.com/wix-incubator/homebrew-brew.git"
+# Clone of cat(1) with syntax highlighting and Git integration
+brew "bat"
 # Command-line tool to manipulate Android App Bundles
 brew "bundletool"
 # Cross-platform make
@@ -9,10 +11,16 @@ brew "cmake"
 brew "cocoapods"
 # Pack, ship and run any application as a lightweight container
 brew "docker"
+# Modern, maintained replacement for ls
+brew "eza"
+# Command-line fuzzy finder written in Go
+brew "fzf"
 # GitHub command-line tool
 brew "gh"
 # Distributed revision control system
 brew "git"
+# Syntax-highlighting pager for git and diff output
+brew "git-delta"
 # Small build system for use with gyp or CMake
 brew "ninja"
 # Open-source, cross-platform JavaScript runtime environment
@@ -29,6 +37,8 @@ brew "tmux"
 brew "uv"
 # Pager/text based browser
 brew "w3m"
+# Shell extension to navigate your filesystem faster
+brew "zoxide"
 # Fish-like fast/unobtrusive autosuggestions for zsh
 brew "zsh-autosuggestions"
 # Fish shell like syntax highlighting for zsh
@@ -44,6 +54,7 @@ cask "android-platform-tools"
 # Developer platform
 cask "dotnet-sdk"
 cask "font-jetbrains-mono"
+cask "font-jetbrains-mono-nerd-font"
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
 # Whisper dictation/transcription app
