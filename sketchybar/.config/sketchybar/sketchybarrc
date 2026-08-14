@@ -1,0 +1,104 @@
+#!/usr/bin/env bash
+
+CONFIG_DIR="${CONFIG_DIR:-$HOME/.config/sketchybar}"
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+
+# Bar
+sketchybar --bar height=30 \
+  position=top \
+  color=0xff1e1e2e \
+  margin=0 \
+  padding_left=30 padding_right=24 \
+  sticky=on \
+  topmost=on
+
+# Default styling (JetBrainsMono Nerd Font for icons)
+sketchybar --default \
+  icon.font="JetBrainsMono Nerd Font:Regular:13.0" \
+  label.font="JetBrainsMono Nerd Font:Regular:13.0" \
+  icon.color=0xffcdd6f4 \
+  label.color=0xffcdd6f4 \
+  background.height=24 \
+  background.corner_radius=6 \
+  background.color=0x00000000 \
+  icon.padding_left=4 icon.padding_right=4 \
+  label.padding_left=4 label.padding_right=4
+
+# --- AeroSpace workspaces (left) ---
+sketchybar --add event aerospace_workspace_change
+
+for sid in 1 2 3 4 5 6 7 8 9 10; do
+  sketchybar --add item space.$sid left \
+    --subscribe space.$sid aerospace_workspace_change \
+    --set space.$sid \
+    label="$sid" \
+    background.drawing=off \
+    click_script="aerospace workspace $sid" \
+    script="$PLUGIN_DIR/aerospace.sh $sid"
+done
+
+# Focused window (left)
+sketchybar --add item window_focus left \
+  --set window_focus \
+  update_freq=1 \
+  script="$PLUGIN_DIR/window_focus.sh"
+
+# --- Right side (added rightmost-first) ---
+# Battery
+sketchybar --add item battery right \
+  --set battery \
+  update_freq=60 \
+  script="$PLUGIN_DIR/battery.sh"
+
+# Clock
+sketchybar --add item clock right \
+  --set clock \
+  update_freq=30 \
+  script="$PLUGIN_DIR/clock.sh"
+
+# Media: song progress slider
+sketchybar --add slider media_progress right \
+  --set media_progress \
+  slider.width=55 \
+  slider.percentage=0 \
+  slider.highlight_color=0xff89b4fa \
+  slider.knob.drawing=off \
+  slider.background.height=4 \
+  slider.background.corner_radius=2 \
+  slider.background.color=0x40ffffff \
+  update_freq=1 \
+  script="$PLUGIN_DIR/media_progress.sh" \
+  click_script="$PLUGIN_DIR/media_seek.sh"
+
+# Media: info + controls (prev, play, next left-to-right)
+sketchybar --add item media_info right \
+  --set media_info \
+  update_freq=1 \
+  label.max_chars=24 \
+  script="$PLUGIN_DIR/media_info.sh"
+
+sketchybar --add item media_next right \
+  --set media_next icon="" \
+  click_script="nowplaying-cli next"
+
+sketchybar --add item media_play right \
+  --set media_play \
+  update_freq=1 \
+  script="$PLUGIN_DIR/media_play.sh" \
+  click_script="nowplaying-cli togglePlayPause"
+
+sketchybar --add item media_prev right \
+  --set media_prev icon="" \
+  click_script="nowplaying-cli previous"
+
+# Activity: RAM
+sketchybar --add item ram right \
+  --set ram \
+  update_freq=2 \
+  script="$PLUGIN_DIR/ram.sh"
+
+# Activity: CPU
+sketchybar --add item cpu right \
+  --set cpu \
+  update_freq=2 \
+  script="$PLUGIN_DIR/cpu.sh"

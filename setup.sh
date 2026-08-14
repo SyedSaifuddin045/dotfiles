@@ -14,6 +14,6 @@ brew bundle --file="$HOME/dotfiles/Brewfile"
 
 echo "==> Stowing dotfiles"
 cd "$HOME/dotfiles"
-stow zsh ripgrep oh-my-posh ghostty
+stow zsh ripgrep oh-my-posh ghostty aerospace sketchybar
 
 echo "==> Done. Restart your terminal."

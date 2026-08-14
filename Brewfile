@@ -1,5 +1,7 @@
 tap "anomalyco/tap"
+tap "felixkratz/formulae"
 tap "jandedobbeleer/oh-my-posh"
+tap "nikitabobko/tap"
 tap "wix-incubator/brew", "https://github.com/wix-incubator/homebrew-brew.git"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
@@ -55,6 +57,12 @@ brew "zsh-syntax-highlighting"
 brew "anomalyco/tap/opencode", trusted: true
 # Prompt theme engine for any shell
 brew "jandedobbeleer/oh-my-posh/oh-my-posh", trusted: true
+# i3-like tiling window manager for macOS
+cask "aerospace", trusted: true
+# Custom status bar with plugin support
+brew "sketchybar", trusted: true
+# Retrieves currently playing media and simulates media actions
+brew "nowplaying-cli"
 # Command-line tools for building and debugging Android apps
 cask "android-commandlinetools"
 # Android SDK component
