@@ -25,8 +25,8 @@ sketchybar --default \
   background.height=24 \
   background.corner_radius=6 \
   background.color=0x00000000 \
-  icon.padding_left=4 icon.padding_right=4 \
-  label.padding_left=4 label.padding_right=4
+  icon.padding_left=3 icon.padding_right=3 \
+  label.padding_left=3 label.padding_right=3
 
 # --- AeroSpace workspaces (left) ---
 sketchybar --add event aerospace_workspace_change
@@ -87,7 +87,7 @@ sketchybar --add item clock right \
 sketchybar --add slider media_progress right \
   --set media_progress \
   drawing=off \
-  slider.width=55 \
+  slider.width=40 \
   slider.percentage=0 \
   slider.highlight_color=0xff89b4fa \
   slider.knob.drawing=off \
@@ -103,7 +103,7 @@ sketchybar --add item media_info right \
   --set media_info \
   drawing=off \
   update_freq=1 \
-  label.max_chars=24 \
+  label.max_chars=16 \
   script="$PLUGIN_DIR/media_info.sh"
 
 sketchybar --add item media_next right \
