@@ -141,8 +141,8 @@ sketchybar --add item cpu right \
   update_freq=2 \
   script="$PLUGIN_DIR/cpu.sh"
 
-# Force usage trio adjacency: CPU | DISK | RAM (explicit screen order)
-sketchybar --reorder cpu disk ram media_progress media_info media_next media_play media_prev clock battery
+# Force right-side order: STATS | MEDIA | BATTERY | TIME (explicit screen order)
+sketchybar --reorder cpu disk ram media_progress media_info media_next media_play media_prev battery clock
 
 # Populate workspace app-icon previews on startup
 "$PLUGIN_DIR/space_windows.sh"
