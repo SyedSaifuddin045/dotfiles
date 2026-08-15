@@ -1,0 +1,145 @@
+#!/usr/bin/env bash
+
+CONFIG_DIR="${CONFIG_DIR:-$HOME/.config/sketchybar}"
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+
+# Reset media presence state so it re-syncs after a restart/reload
+echo 0 > /tmp/sb_media_present
+echo 0 > /tmp/sb_media_count
+
+# Bar
+sketchybar --bar height=30 \
+  position=top \
+  color=0xff1e1e2e \
+  margin=0 \
+  padding_left=30 padding_right=24 \
+  sticky=on \
+  topmost=window
+
+# Default styling (JetBrainsMono Nerd Font for icons)
+sketchybar --default \
+  icon.font="JetBrainsMono Nerd Font:Regular:13.0" \
+  label.font="JetBrainsMono Nerd Font:Regular:13.0" \
+  icon.color=0xffcdd6f4 \
+  label.color=0xffcdd6f4 \
+  background.height=24 \
+  background.corner_radius=6 \
+  background.color=0x00000000 \
+  icon.padding_left=4 icon.padding_right=4 \
+  label.padding_left=4 label.padding_right=4
+
+# --- AeroSpace workspaces (left) ---
+sketchybar --add event aerospace_workspace_change
+
+for sid in 1 2 3 4 5; do
+  sketchybar --add item space.$sid left \
+    --subscribe space.$sid aerospace_workspace_change \
+    --set space.$sid \
+    icon="$sid" \
+    icon.color=0xffcdd6f4 \
+    label="" \
+    label.font="sketchybar-app-font:Regular:13.0" \
+    label.padding_left=4 \
+    label.color=0xffcdd6f4 \
+    padding_left=3 padding_right=3 \
+    background.drawing=off \
+    background.color=0xff89b4fa \
+    background.height=24 \
+    background.corner_radius=6 \
+    click_script="aerospace workspace $sid" \
+    script="$PLUGIN_DIR/aerospace.sh $sid"
+done
+
+# Refresh workspace app-icon previews on aerospace workspace change
+sketchybar --add item space_windows left \
+  --subscribe space_windows aerospace_workspace_change \
+  --set space_windows \
+  drawing=off \
+  script="$PLUGIN_DIR/space_windows.sh"
+
+# Focused app icon + name (left)
+sketchybar --add item front_app left \
+  --set front_app \
+  icon.font="sketchybar-app-font:Regular:14.0" \
+  icon.color=0xffcdd6f4 \
+  icon.padding_right=6 \
+  label.color=0xffcdd6f4 \
+  label.max_chars=24 \
+  update_freq=1 \
+  script="$PLUGIN_DIR/front_app.sh" \
+  --subscribe front_app front_app_switched
+
+# --- Right side (added rightmost-first) ---
+# Battery (icon updates on level + power_source_change)
+sketchybar --add item battery right \
+  --set battery \
+  update_freq=60 \
+  script="$PLUGIN_DIR/battery.sh" \
+  --subscribe battery power_source_change
+
+# Disk storage
+sketchybar --add item disk right \
+  --set disk \
+  update_freq=60 \
+  script="$PLUGIN_DIR/disk.sh"
+
+# Clock
+sketchybar --add item clock right \
+  --set clock \
+  update_freq=30 \
+  script="$PLUGIN_DIR/clock.sh"
+
+# Media: song progress slider
+sketchybar --add slider media_progress right \
+  --set media_progress \
+  drawing=off \
+  slider.width=55 \
+  slider.percentage=0 \
+  slider.highlight_color=0xff89b4fa \
+  slider.knob.drawing=off \
+  slider.background.height=4 \
+  slider.background.corner_radius=2 \
+  slider.background.color=0x40ffffff \
+  update_freq=1 \
+  script="$PLUGIN_DIR/media_progress.sh" \
+  click_script="$PLUGIN_DIR/media_seek.sh"
+
+# Media: info + controls (prev, play, next left-to-right)
+sketchybar --add item media_info right \
+  --set media_info \
+  drawing=off \
+  update_freq=1 \
+  label.max_chars=24 \
+  script="$PLUGIN_DIR/media_info.sh"
+
+sketchybar --add item media_next right \
+  --set media_next icon="" \
+  drawing=off \
+  click_script="nowplaying-cli next"
+
+sketchybar --add item media_play right \
+  --set media_play \
+  drawing=off \
+  update_freq=1 \
+  script="$PLUGIN_DIR/media_play.sh" \
+  click_script="nowplaying-cli togglePlayPause"
+
+sketchybar --add item media_prev right \
+  --set media_prev icon="" \
+  drawing=off \
+  click_script="nowplaying-cli previous"
+
+# Activity: RAM
+sketchybar --add item ram right \
+  --set ram \
+  update_freq=2 \
+  script="$PLUGIN_DIR/ram.sh"
+
+# Activity: CPU
+sketchybar --add item cpu right \
+  --set cpu \
+  update_freq=2 \
+  script="$PLUGIN_DIR/cpu.sh"
+
+# Populate workspace app-icon previews on startup
+"$PLUGIN_DIR/space_windows.sh"
