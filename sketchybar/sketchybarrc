@@ -37,6 +37,7 @@ for sid in 1 2 3 4 5; do
     --set space.$sid \
     icon="$sid" \
     icon.color=0xffcdd6f4 \
+    icon.padding_left=6 icon.padding_right=6 \
     label="" \
     label.font="sketchybar-app-font:Regular:13.0" \
     label.padding_left=4 \
@@ -142,7 +143,8 @@ sketchybar --add item cpu right \
   script="$PLUGIN_DIR/cpu.sh"
 
 # Force right-side order: STATS | MEDIA | BATTERY | TIME (explicit screen order)
-sketchybar --reorder cpu disk ram media_progress media_info media_next media_play media_prev battery clock
+# right-side items render right-to-left, so the list is reversed
+sketchybar --reorder clock battery media_next media_play media_prev media_info media_progress ram disk cpu
 
 # Populate workspace app-icon previews on startup
 "$PLUGIN_DIR/space_windows.sh"
