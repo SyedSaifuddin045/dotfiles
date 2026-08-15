@@ -29,13 +29,10 @@ gaps.outer.right = 8
 # STRICT TILING MODE: every window tiles by default. This catch-all (first,
 # with check-further-callbacks) overrides AeroSpace's dialog auto-float
 # heuristic, so nothing floats unless toggled manually with alt-f.
-# Apps pinned to fixed workspaces (your "spaces" layout):
-#   workspace 1 = dev      (Ghostty, VS Code)
-#   workspace 2 = web
+# No app is pinned to a workspace anymore — apps open in your current
+# workspace; move them with alt-shift-<number>.
 on-window-detected = [
     { check-further-callbacks = true, run = 'layout tiling' },
-    { if.app-id = 'com.mitchellh.ghostty', run = 'move-node-to-workspace 1' },
-    { if.app-id = 'com.microsoft.VSCode',  run = 'move-node-to-workspace 1' },
 ]
 
 [mode.main.binding]
@@ -49,12 +46,19 @@ on-window-detected = [
     alt-4 = 'workspace 4'
     alt-5 = 'workspace 5'
 
-    # Move window to workspace
+    # Move window to workspace (and follow it there)
     alt-shift-1 = 'move-node-to-workspace 1; workspace 1'
     alt-shift-2 = 'move-node-to-workspace 2; workspace 2'
     alt-shift-3 = 'move-node-to-workspace 3; workspace 3'
     alt-shift-4 = 'move-node-to-workspace 4; workspace 4'
     alt-shift-5 = 'move-node-to-workspace 5; workspace 5'
+
+    # Move window to workspace WITHOUT switching (stay where you are)
+    alt-ctrl-1 = 'move-node-to-workspace 1'
+    alt-ctrl-2 = 'move-node-to-workspace 2'
+    alt-ctrl-3 = 'move-node-to-workspace 3'
+    alt-ctrl-4 = 'move-node-to-workspace 4'
+    alt-ctrl-5 = 'move-node-to-workspace 5'
 
     # Focus navigation (vim-style)
     alt-h = 'focus left'
