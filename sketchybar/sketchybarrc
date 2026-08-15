@@ -142,9 +142,9 @@ sketchybar --add item cpu right \
   update_freq=2 \
   script="$PLUGIN_DIR/cpu.sh"
 
-# Force right-side order: controls -> media title -> progress bar
+# Force right-side order: controls -> media title -> progress bar -> stats
 # right-side items render right-to-left, so the list is reversed
-sketchybar --reorder clock battery media_progress media_info media_next media_play media_prev ram disk cpu
+sketchybar --reorder clock battery media_progress media_info media_next media_play media_prev disk ram cpu
 
 # Populate workspace app-icon previews on startup
 "$PLUGIN_DIR/space_windows.sh"
