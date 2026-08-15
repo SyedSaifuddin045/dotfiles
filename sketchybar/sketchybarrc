@@ -77,12 +77,6 @@ sketchybar --add item battery right \
   script="$PLUGIN_DIR/battery.sh" \
   --subscribe battery power_source_change
 
-# Disk storage
-sketchybar --add item disk right \
-  --set disk \
-  update_freq=60 \
-  script="$PLUGIN_DIR/disk.sh"
-
 # Clock
 sketchybar --add item clock right \
   --set clock \
@@ -134,6 +128,12 @@ sketchybar --add item ram right \
   --set ram \
   update_freq=2 \
   script="$PLUGIN_DIR/ram.sh"
+
+# Activity: Disk (beside RAM, unified % format)
+sketchybar --add item disk right \
+  --set disk \
+  update_freq=2 \
+  script="$PLUGIN_DIR/disk.sh"
 
 # Activity: CPU
 sketchybar --add item cpu right \
