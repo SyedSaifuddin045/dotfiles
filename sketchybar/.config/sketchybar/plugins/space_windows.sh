@@ -12,9 +12,9 @@ for ws in 1 2 3 4 5; do
     while read -r app; do
       [ -n "$app" ] && strip+=" $("$CONFIG_DIR/helpers/icon_map.sh" "$app")"
     done <<<"$apps"
-    sketchybar --set "space.$ws" label="$strip" label.padding_left=4 label.padding_right=8
+    sketchybar --set "space.$ws" label="$strip" label.padding_left=3 label.padding_right=3
   else
-    sketchybar --set "space.$ws" label="" label.padding_left=0 label.padding_right=0
+    sketchybar --set "space.$ws" label="" label.padding_left=3 label.padding_right=3
   fi
   "$CONFIG_DIR/helpers/workspace_style.sh" "$ws"
 done
