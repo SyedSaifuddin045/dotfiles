@@ -68,7 +68,7 @@ sketchybar --add item space_sep left \
   label="│" \
   label.color=0xff45475a \
   label.padding_left=3 label.padding_right=3 \
-  padding_left=6 padding_right=4
+  padding_left=0 padding_right=4
 
 # Focused app icon + name (left)
 sketchybar --add item front_app left \
