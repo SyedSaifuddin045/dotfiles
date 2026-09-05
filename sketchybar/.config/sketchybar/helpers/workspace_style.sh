@@ -17,6 +17,7 @@ if [ "$ws" = "$focused" ]; then
     background.color=0xff89b4fa \
     background.drawing=on \
     background.border_width=0 \
+    icon.width=28 \
     icon.color=0xff11111b \
     label.color=0xff11111b
 elif [ "$count" -gt 0 ]; then
@@ -25,6 +26,7 @@ elif [ "$count" -gt 0 ]; then
     background.drawing=on \
     background.border_color=0x6689b4fa \
     background.border_width=2 \
+    icon.width=0 \
     icon.color=0xffcdd6f4 \
     label.color=0xffcdd6f4
 else
@@ -33,6 +35,7 @@ else
     background.color=0x00000000 \
     background.border_color=0x6689b4fa \
     background.border_width=2 \
+    icon.width=28 \
     icon.color=0xffcdd6f4 \
     label.color=0xffcdd6f4
 fi
