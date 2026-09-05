@@ -51,6 +51,9 @@ for sid in 1 2 3 4 5; do
     script="$PLUGIN_DIR/aerospace.sh $sid"
 done
 
+# last workspace sits flush against the divider
+sketchybar --set space.5 padding_right=0
+
 # Refresh workspace app-icon previews on aerospace workspace change,
 # window open/close (windows_refresh), app switches, plus 10s poll as
 # safety net for background-app closes (AeroSpace emits no close event)
