@@ -136,15 +136,21 @@ sketchybar --add item disk right \
   update_freq=2 \
   script="$PLUGIN_DIR/disk.sh"
 
+# Activity: Network bandwidth (auto B/KB/MB/GB, after disk, before media)
+sketchybar --add item network right \
+  --set network \
+  update_freq=2 \
+  script="$PLUGIN_DIR/network.sh"
+
 # Activity: CPU
 sketchybar --add item cpu right \
   --set cpu \
   update_freq=2 \
   script="$PLUGIN_DIR/cpu.sh"
 
-# Force right-side order: controls -> media title -> progress bar -> stats
+# Force right-side order: controls -> media title -> progress bar -> stats -> network -> storage
 # right-side items render right-to-left, so the list is reversed
-sketchybar --reorder clock battery media_progress media_info media_next media_play media_prev disk ram cpu
+sketchybar --reorder clock battery media_progress media_info media_next media_play media_prev network disk ram cpu
 
 # Populate workspace app-icon previews on startup
 "$PLUGIN_DIR/space_windows.sh"
