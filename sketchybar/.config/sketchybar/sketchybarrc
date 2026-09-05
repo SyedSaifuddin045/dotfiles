@@ -67,13 +67,11 @@ sketchybar --add item space_windows left \
 
 # Divider between workspace cluster and focused-app pill
 sketchybar --add item space_sep left \
-  --subscribe space_sep aerospace_workspace_change \
   --set space_sep \
   label="│" \
   label.color=0xff45475a \
   label.padding_left=4 label.padding_right=12 \
-  padding_left=0 padding_right=0 \
-  script="$PLUGIN_DIR/divider.sh"
+  padding_left=4 padding_right=0
 
 # Focused app icon + name (left)
 sketchybar --add item front_app left \
