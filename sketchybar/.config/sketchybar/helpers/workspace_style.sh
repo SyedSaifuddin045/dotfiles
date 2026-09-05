@@ -29,10 +29,10 @@ elif [ "$count" -gt 0 ]; then
     label.color=0xffcdd6f4
 else
   sketchybar --set "space.$ws" \
-    background.drawing=off \
+    background.drawing=on \
     background.color=0x00000000 \
-    background.border_color=0x00000000 \
-    background.border_width=0 \
+    background.border_color=0x6689b4fa \
+    background.border_width=2 \
     icon.color=0xffcdd6f4 \
     label.color=0xffcdd6f4
 fi
