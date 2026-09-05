@@ -115,6 +115,9 @@ return {
   -- treesitter, mason and typescript.nvim. So instead of the above, you can use:
   { import = "lazyvim.plugins.extras.lang.typescript" },
 
+  -- C/C++: clangd LSP + formatting (clang-format via conform fallback) + codelldb
+  { import = "lazyvim.plugins.extras.lang.clangd" },
+
   -- add more treesitter parsers
   {
     "nvim-treesitter/nvim-treesitter",
