@@ -51,12 +51,24 @@ for sid in 1 2 3 4 5; do
     script="$PLUGIN_DIR/aerospace.sh $sid"
 done
 
-# Refresh workspace app-icon previews on aerospace workspace change
+# Refresh workspace app-icon previews on aerospace workspace change,
+# window open/close (windows_refresh), app switches, plus 10s poll as
+# safety net for background-app closes (AeroSpace emits no close event)
+sketchybar --add event windows_refresh
 sketchybar --add item space_windows left \
-  --subscribe space_windows aerospace_workspace_change \
+  --subscribe space_windows aerospace_workspace_change windows_refresh front_app_switched \
   --set space_windows \
   drawing=off \
+  update_freq=10 \
   script="$PLUGIN_DIR/space_windows.sh"
+
+# Divider between workspace cluster and focused-app pill
+sketchybar --add item space_sep left \
+  --set space_sep \
+  label="│" \
+  label.color=0xff45475a \
+  label.padding_left=2 label.padding_right=2 \
+  padding_left=10 padding_right=10
 
 # Focused app icon + name (left)
 sketchybar --add item front_app left \
@@ -66,9 +78,21 @@ sketchybar --add item front_app left \
   icon.padding_right=6 \
   label.color=0xffcdd6f4 \
   label.max_chars=24 \
+  background.drawing=on \
+  background.color=0x3d7f849c \
+  background.border_width=0 \
+  background.padding_left=8 background.padding_right=8 \
   update_freq=1 \
   script="$PLUGIN_DIR/front_app.sh" \
   --subscribe front_app front_app_switched
+
+# Network bandwidth (left side — long labels here would push the right
+# cluster's cpu into the notch)
+sketchybar --add item network left \
+  --set network \
+  padding_left=12 \
+  update_freq=2 \
+  script="$PLUGIN_DIR/network.sh"
 
 # --- Right side (added rightmost-first) ---
 # Battery (icon updates on level + power_source_change)

@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-# Highlights the focused AeroSpace workspace in SketchyBar
-if [ "$1" = "$FOCUSED_WORKSPACE" ]; then
-  sketchybar --set $NAME background.color=0xff7f849c background.drawing=on label.color=0xff11111b icon.color=0xff11111b
-else
-  sketchybar --set $NAME background.drawing=off label.color=0xffcdd6f4 icon.color=0xffcdd6f4
-fi
+# Highlights the focused AeroSpace workspace in SketchyBar.
+# All styling is owned by the shared workspace_style helper.
+
+CONFIG_DIR="${CONFIG_DIR:-$HOME/.config/sketchybar}"
+
+exec "$CONFIG_DIR/helpers/workspace_style.sh" "$1"

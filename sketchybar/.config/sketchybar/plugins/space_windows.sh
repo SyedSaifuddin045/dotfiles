@@ -16,4 +16,5 @@ for ws in 1 2 3 4 5; do
   else
     sketchybar --set "space.$ws" label="" label.padding_left=0 label.padding_right=0
   fi
+  "$CONFIG_DIR/helpers/workspace_style.sh" "$ws"
 done
