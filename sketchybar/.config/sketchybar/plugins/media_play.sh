@@ -46,13 +46,17 @@ else
     displayed=$want
     count=0
     if [ "$displayed" = 1 ]; then
-      sketchybar --set media_progress drawing=on \
+      sketchybar --set media_bracket drawing=on \
+                 --set sec_gap2 drawing=on \
+                 --set media_progress drawing=on \
                  --set media_info drawing=on \
                  --set media_next drawing=on \
                  --set media_play drawing=on \
                  --set media_prev drawing=on
     else
-      sketchybar --set media_progress drawing=off \
+      sketchybar --set media_bracket drawing=off \
+                 --set sec_gap2 drawing=off \
+                 --set media_progress drawing=off \
                  --set media_info drawing=off \
                  --set media_next drawing=off \
                  --set media_play drawing=off \
