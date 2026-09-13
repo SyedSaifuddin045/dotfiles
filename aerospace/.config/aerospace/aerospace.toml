@@ -10,13 +10,19 @@ auto-reload-config = true
 # sketchybar detects already-running process, safe to re-run
 after-startup-command = ['exec-and-forget sketchybar']
 
-# Notify Sketchybar when workspace changes
+# Notify Sketchybar when workspace changes + save state for wake restore
 exec-on-workspace-change = ['/bin/bash', '-c',
-    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE && aerospace list-windows --all --format "%{app-bundle-id}|%{window-title}|%{workspace}" > ~/.config/aerospace/.workspace-state'
 ]
 
 # Default layout for new workspaces
 default-root-container-layout = 'tiles'
+
+# Disable tree normalizations so the i3-style `split` command works
+# (split is a no-op when these are enabled). Tradeoff: manual splits can
+# produce nested containers; flatten-workspace-tree (alt-r) resets.
+enable-normalization-flatten-containers = false
+enable-normalization-opposite-orientation-for-nested-containers = false
 
 # Gaps so tiled windows are visually separated
 gaps.inner.horizontal = 8
@@ -29,14 +35,12 @@ gaps.outer.right = 8
 # STRICT TILING MODE: every window tiles by default. This catch-all (first,
 # with check-further-callbacks) overrides AeroSpace's dialog auto-float
 # heuristic, so nothing floats unless toggled manually with alt-f.
-# Apps pinned to fixed workspaces (your "spaces" layout):
-#   workspace 1 = dev      (Ghostty, VS Code)
-#   workspace 2 = web      (Safari)
+# No app is pinned to a workspace anymore — apps open in your current
+# workspace; move them with alt-shift-<number>.
 on-window-detected = [
     { check-further-callbacks = true, run = 'layout tiling' },
-    { if.app-id = 'com.mitchellh.ghostty', run = 'move-node-to-workspace 1' },
-    { if.app-id = 'com.microsoft.VSCode',  run = 'move-node-to-workspace 1' },
-    { if.app-id = 'com.apple.Safari',      run = 'move-node-to-workspace 2' },
+    # Refresh SketchyBar workspace strips whenever any new window appears
+    { if = 'true', run = 'exec-and-forget sketchybar --trigger windows_refresh' },
 ]
 
 [mode.main.binding]
@@ -50,12 +54,35 @@ on-window-detected = [
     alt-4 = 'workspace 4'
     alt-5 = 'workspace 5'
 
-    # Move window to workspace
+    # Whole-workspace tiling direction for next windows
+    # (Cmd+Opt so it doesn't clash with Cmd+V paste / Cmd+H hide app)
+    cmd-alt-v = 'layout tiles vertical'
+    cmd-alt-h = 'layout tiles horizontal'
+
+    # Per-window split: reserve a slot so the NEXT window lands below /
+    # beside the focused window (works because normalizations are disabled)
+    cmd-alt-shift-v = 'split vertical'
+    cmd-alt-shift-h = 'split horizontal'
+
+    # Reset a workspace tree back to a single container (escape hatch for
+    # messy split trees)
+    alt-r = 'flatten-workspace-tree'
+
+    # Move window to workspace (and follow it there)
     alt-shift-1 = 'move-node-to-workspace 1; workspace 1'
     alt-shift-2 = 'move-node-to-workspace 2; workspace 2'
     alt-shift-3 = 'move-node-to-workspace 3; workspace 3'
     alt-shift-4 = 'move-node-to-workspace 4; workspace 4'
     alt-shift-5 = 'move-node-to-workspace 5; workspace 5'
+
+    # Move window to workspace WITHOUT switching (stay where you are)
+    # bash-sequenced refresh since focused-workspace event won't fire here
+    # (exec-and-forget can't be chained with ';' — CLI parser rejects it)
+    alt-ctrl-1 = 'exec-and-forget aerospace move-node-to-workspace 1 && sketchybar --trigger windows_refresh'
+    alt-ctrl-2 = 'exec-and-forget aerospace move-node-to-workspace 2 && sketchybar --trigger windows_refresh'
+    alt-ctrl-3 = 'exec-and-forget aerospace move-node-to-workspace 3 && sketchybar --trigger windows_refresh'
+    alt-ctrl-4 = 'exec-and-forget aerospace move-node-to-workspace 4 && sketchybar --trigger windows_refresh'
+    alt-ctrl-5 = 'exec-and-forget aerospace move-node-to-workspace 5 && sketchybar --trigger windows_refresh'
 
     # Focus navigation (vim-style)
     alt-h = 'focus left'
